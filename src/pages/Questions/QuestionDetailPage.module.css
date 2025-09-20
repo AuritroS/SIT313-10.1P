@@ -1,0 +1,74 @@
+.wrapper {
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 1rem 1rem 2rem;
+  background: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+}
+
+.backBtn {
+  margin-bottom: 0.5rem;
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 8px !important;
+  font-size: 0.9em !important;
+}
+
+.title {
+  margin-top: 0.25rem;
+  font-size: 2rem !important;
+  font-weight: 800 !important;
+  color: var(--text-color) !important;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0.25rem 0 0.75rem;
+  font-size: 0.95rem;
+}
+
+.author {
+  color: color-mix(in srgb, var(--text-color) 65%, var(--bg-color));
+}
+
+.dot {
+  color: color-mix(in srgb, var(--text-color) 55%, var(--bg-color));
+}
+
+.date {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.tagsRow {
+  margin: 0.25rem 0 1rem;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.tag.ui.label {
+  background: color-mix(in srgb, var(--accent-color) 12%, var(--bg-color)) !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 6px !important;
+  font-weight: 600 !important;
+}
+.tagIcon {
+  color: var(--accent-color) !important;
+}
+
+.body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 1.02rem;
+}
+
+.error {
+  color: #b00020;
+}

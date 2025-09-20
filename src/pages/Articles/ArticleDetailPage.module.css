@@ -1,0 +1,45 @@
+.wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--input-bg);
+  color: var(--text-color);
+  border-radius: 12px;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.image {
+  display: block;                /* ensure it's a block element */
+  margin: 0 auto 1rem auto;      /* centers horizontally */
+  border-radius: 10px;
+  max-width: 100%;               /* prevent overflow */
+  height: auto;                  /* keep aspect ratio */
+}
+
+
+.abstract {
+  font-style: italic;
+  margin-bottom: 1.5rem;
+  color: color-mix(in srgb, var(--text-color) 70%, var(--bg-color));
+}
+
+.body {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.backBtn {
+  margin-bottom: 0.5rem;
+  background: transparent !important;
+  color: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 8px !important;
+  font-size: 0.9em !important;
+}

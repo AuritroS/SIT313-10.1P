@@ -1,0 +1,199 @@
+.page {
+  padding: 2rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: 0.75rem;
+}
+
+.subtext {
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* Section boxes (same look as the top block) */
+.section {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  background: var(--input-bg);
+}
+
+.section h4 {
+  margin: 0 0 12px;
+}
+
+/* Minor section heading between boxes */
+.subheading {
+  margin: 24px 0 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+/* Generic rows */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.label span {
+  width: 140px;
+}
+
+/* Ensure color inputs keep their native swatch */
+.label input[type="color"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  padding: 0;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background: none;
+  width: 48px;
+  height: 28px;
+  cursor: pointer;
+}
+
+/* Fine controls grid */
+.fineControls {
+  display: grid;
+  gap: 12px;
+}
+
+.applyButton {
+  margin-top: 12px;
+  align-self: start;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Transparent outlined buttons */
+.outlineButton {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.outlineButton:hover {
+  background: var(--input-bg);
+}
+
+/* Save preset */
+.savePreset {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--input-border);
+}
+
+.savePreset input {
+  background: var(--input-bg);
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Presets */
+.presets {
+  margin-top: 18px;
+}
+
+.presetsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.presetCard {
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.presetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.presetName {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+}
+
+.swatch {
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--input-border);
+}
+
+.presetButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.deleteButton {
+  flex: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--input-border);
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 6px;
+  color: var(--text-color);
+  transition: opacity 0.2s ease;
+}
+
+.iconButton:hover {
+  opacity: 0.7;
+}
+
+.editInput {
+  flex: 1;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  padding: 4px 6px;
+  background: var(--input-bg);
+  color: var(--text-color);
+}

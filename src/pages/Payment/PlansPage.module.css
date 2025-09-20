@@ -1,0 +1,106 @@
+/* Container */
+.container {
+  padding: 24px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.heading {
+  margin-bottom: 8px;
+}
+
+.subheading {
+  margin-top: 0;
+  /* muted text derived from tokens */
+  color: color-mix(in srgb, var(--text-color) 65%, var(--bg-color));
+}
+
+/* Plans grid */
+.plansGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* Plan card */
+.planCard {
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  padding: 20px;
+  background: var(--input-bg);
+}
+
+.highlight {
+  border: 2px solid var(--accent-color);
+  /* soft shadow using theme text as base */
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--text-color) 10%, transparent);
+}
+
+.planTitle {
+  margin-top: 0;
+  margin-bottom: 4px;
+}
+
+.planPrice {
+  font-size: 18px;
+  margin-top: 0;
+  color: color-mix(in srgb, var(--text-color) 72%, var(--bg-color));
+}
+
+.featureList {
+  padding-left: 0;
+  list-style: none;
+  margin: 12px 0;
+}
+
+/* Feature */
+.feature {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+.featureIcon {
+  min-width: 16px;
+}
+
+/* Footers */
+.footerLink {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--input-border);
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--text-color);
+}
+
+.upgradeBtn {
+  margin-top: 22px;
+}
+
+.premiumMsg {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--accent-color);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--accent-color) 16%, var(--bg-color)) 0%,
+    color-mix(in srgb, var(--accent-color) 36%, var(--bg-color)) 100%
+  );
+  color: var(--accent-color);
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Footer note */
+.note {
+  margin-top: 18px;
+  font-size: 13px;
+  color: color-mix(in srgb, var(--text-color) 60%, var(--bg-color));
+}

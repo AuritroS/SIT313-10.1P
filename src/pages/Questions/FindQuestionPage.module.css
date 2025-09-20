@@ -1,0 +1,382 @@
+/* ---------------- Base Layout ---------------- */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+
+}
+
+.toolbar {
+  display: grid;
+  gap: 10px;
+}
+
+.toolbarTop {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  align-items: center;
+}
+
+.toolbarBottom {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.toolbarButtons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ---------------- Search ---------------- */
+.searchBox { position: relative; }
+.searchClear {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+/* ---------------- Date Picker (wrapper + popover) ---------------- */
+.dateButtonWrapper { position: relative; }
+
+.datePopover {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  top: calc(100% + 8px);
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+
+.datePopoverActions {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.datePopoverBtns { display: flex; gap: 8px; }
+
+/* Accent the Apply button rendered inside our popover */
+.datePopoverActions :global(.ui.primary.button) {
+  background: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+.datePopoverActions :global(.ui.primary.button:hover) {
+  background: color-mix(in srgb, var(--accent-color) 90%, black 10%) !important;
+}
+
+/* ---------------- Tags ---------------- */
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.tagFilter {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 8px;
+  align-items: start;
+  width: 100%;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 0;
+}
+
+/* Keep tag filter tags full accent */
+.tagLabel {
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 4px !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  font-size: 0.85rem !important;
+  opacity: 1;
+}
+
+/* Muted tags inside questions */
+.tagLabelMuted {
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 4px !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  font-size: 0.85rem !important;
+  opacity: 0.6;
+}
+
+.tagItem { margin-bottom: 6px !important; }
+.tagRemove { cursor: pointer; margin-left: 6px; color: var(--accent-color) !important; }
+
+/* ---------------- Cards ---------------- */
+.listCard {
+  border-bottom: 1px solid var(--accent-color);
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--bg-color);
+}
+
+.hiddenCard {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  opacity: 0.5;
+  background: var(--bg-color);
+}
+
+.itemHeaderRow { display: flex; align-items: center; gap: 10px; }
+.itemTitle { margin: 0; flex: 1; font-weight: 600; }
+.itemMeta { color: var(--accent-color); margin-top: 4px; font-size: 0.85rem; }
+.itemBody { margin-top: 10px; color: var(--text-color); }
+.itemBodyMuted { margin-top: 10px; color: #666; }
+.itemFullBody { white-space: pre-wrap; word-break: break-word; font-size: 14px; line-height: 1.5; }
+.itemActions { margin-top: 10px; }
+.dragHandle { cursor: grab; padding: 4px; line-height: 0; display: inline-flex; }
+
+/* ---------------- Buttons ---------------- */
+.outlineBtn {
+  border: 1px solid var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.outlineBtn:hover,
+.outlineBtn:focus {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+.outlineBtnActive {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+
+/* ===================================================================== */
+/*                 react-date-range THEME (accent everywhere)            */
+/* ===================================================================== */
+
+/* Selected day circle */
+:global(.rdrDaySelected .rdrDayNumber span) {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+
+/* In-range fill (overlay layers only so numbers stay readable) */
+:global(.rdrInRange),
+:global(.rdrStartEdge),
+:global(.rdrEndEdge) {
+  background: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Keep numerals readable when a cell is inside the range */
+:global(.rdrDayInRange .rdrDayNumber span),
+:global(.rdrStartEdge .rdrDayNumber span),
+:global(.rdrEndEdge .rdrDayNumber span) {
+  color: var(--input-bg) !important;
+}
+
+/* Preview outlines (no background here; just accent borders) */
+:global(.rdrDayStartPreview),
+:global(.rdrDayEndPreview) { border-color: var(--accent-color) !important; }
+:global(.rdrDayInPreview) {
+  border-top: 1px solid var(--accent-color) !important;
+  border-bottom: 1px solid var(--accent-color) !important;
+}
+
+/* Today indicator ring */
+:global(.rdrDayToday .rdrDayNumber span:after) {
+  border: 1px solid var(--accent-color) !important;
+}
+
+/* Active-day underline */
+:global(.rdrCalendarWrapper .rdrDay .rdrDayNumber span::after) {
+  background: var(--accent-color) !important;
+}
+
+/* Quick-range sidebar */
+:global(.rdrStaticRangeSelected),
+:global(.rdrStaticRange .rdrStaticRangeLabel:hover) {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+
+/* ---------------- Date display inputs (top two fields) ---------------- */
+
+/* Default wrapper */
+:global(.rdrCalendarWrapper .rdrDateDisplayItem) {
+  border: 1px solid var(--border-color, #d9d9d9) !important;
+  border-radius: 8px !important;
+}
+
+/* Focused/active wrapper (library toggles this class) */
+:global(.rdrCalendarWrapper .rdrDateDisplayItemActive) {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent-color) 28%, transparent) !important;
+}
+
+/* Neutralize the input itself (avoid double borders/glow) */
+:global(.rdrCalendarWrapper .rdrDateDisplayItem input),
+:global(.rdrCalendarWrapper .rdrDateDisplayItem input:focus) {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: var(--text-color) !important;
+}
+
+
+
+
+
+
+
+/* ---------------- Tags ---------------- */
+.tagRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.tagFilter {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 8px;
+  align-items: start;
+  width: 100%;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 0;
+}
+
+/* Keep tag filter tags full accent */
+.tagLabel {
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 4px !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  font-size: 0.85rem !important;
+  opacity: 1; /* full */
+}
+
+/* Muted tags inside questions */
+.tagLabelMuted {
+  border: 1px solid var(--accent-color) !important;
+  border-radius: 4px !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  font-size: 0.85rem !important;
+  opacity: 0.6; /* half */
+}
+
+
+.tagItem {
+  margin-bottom: 6px !important;
+}
+
+.tagRemove {
+  cursor: pointer;
+  margin-left: 6px;
+  color: var(--accent-color) !important;
+}
+
+/* ---------------- Cards ---------------- */
+.listCard {
+ border-bottom: 1px solid var(--accent-color);
+  padding: 12px;
+  margin-bottom: 10px;
+  background: var(--bg-color);
+}
+
+.hiddenCard {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  opacity: 0.5;
+  background: var(--bg-color);
+}
+
+.itemHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.itemTitle {
+  margin: 0;
+  flex: 1;
+  font-weight: 600;
+}
+
+.itemMeta {
+  color: var(--accent-color);
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+
+.itemBody {
+  margin-top: 10px;
+  color: var(--text-color);
+}
+
+.itemBodyMuted {
+  margin-top: 10px;
+  color: #666;
+}
+
+.itemFullBody {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.itemActions {
+  margin-top: 10px;
+}
+
+.dragHandle {
+  cursor: grab;
+  padding: 4px;
+  line-height: 0;
+  display: inline-flex;
+}
+
+/* ---------------- Buttons ---------------- */
+.outlineBtn {
+  border: 1px solid var(--accent-color) !important;
+  color: var(--accent-color) !important;
+  background: transparent !important;
+  border-radius: 6px !important;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.outlineBtn:hover,
+.outlineBtn:focus {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}
+
+.outlineBtnActive {
+  background: var(--accent-color) !important;
+  color: var(--input-bg) !important;
+}

@@ -1,0 +1,25 @@
+/* src/components/FeaturedSection.module.css */
+
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.sectionHeader {
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem;
+  color: var(--text-color);
+}
+/* Center the buttons under each block */
+.buttonWrapper {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+/* Optional: tighten card group width */
+:global(.ui.cards) {
+  max-width: 1100px;
+  margin: 0 auto !important;
+  gap: 16px !important;
+}

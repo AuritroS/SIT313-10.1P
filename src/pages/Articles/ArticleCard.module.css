@@ -1,0 +1,70 @@
+/* Container ensures consistent card height */
+.card.ui.card {
+  cursor: pointer;
+  border: 1px solid var(--input-border) !important;
+  border-radius: 12px !important;
+  background: var(--input-bg) !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06) !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 340px;                  /* 👈 FIXED height for all cards */
+}
+.card.ui.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Uniform image */
+.image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* Body content flexes */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.8rem 1rem !important;
+}
+
+/* Title */
+.header {
+  color: var(--text-color) !important;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.3rem !important;
+  flex-shrink: 0;
+}
+
+/* Clamp description */
+/* Clamp description */
+.desc {
+  color: var(--text-color) !important;
+  font-size: 0.95rem !important;
+  line-height: 1.4 !important;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;        /* Safari / Chrome / Edge */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  display: -moz-box;            /* Old Firefox */
+  -moz-box-orient: vertical;
+
+  display: box;                 /* Legacy */
+  box-orient: vertical;
+
+  line-clamp: 3;                /* Modern spec (still experimental) */
+  flex-grow: 1;
+}
+

@@ -1,0 +1,39 @@
+.footer {
+  padding: 0.5em;
+  font-size: 0.9em;
+padding: 2em 2em 0;
+  text-align: center;
+  background: var(--footer-bg);
+  color: var(--text-color);
+}
+
+.header {
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+
+.social :global(.icon) {
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.2s ease;
+}
+
+.social :global(.icon:hover) {
+  color: var(--accent-color);
+}
+
+.bottom {
+  margin-top: 2em;
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.plansBtn{
+    font-size: 0.9em !important;
+    background-color: var(--accent-color) !important;
+    color: var(--bg-color) !important;
+}
+
+a{
+    color: var(--accent-color) !important;
+}

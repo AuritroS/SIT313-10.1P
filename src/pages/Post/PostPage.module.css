@@ -1,0 +1,145 @@
+/* Container */
+.container {
+  max-width: 760px;
+  margin: 2rem auto;
+}
+
+/* Scope form-specific tweaks to this page only */
+.formRoot :global(.ui.form .field > label) {
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text-color);
+}
+
+/* --- Radio (Semantic UI) themed --- */
+.formRoot :global(.ui.radio.checkbox label) {
+  color: var(--text-color);
+}
+
+.formRoot :global(.ui.radio.checkbox label:before) {
+  border-color: var(--accent-color) !important;
+  background: transparent !important;
+}
+
+.formRoot :global(.ui.radio.checkbox input:checked ~ label:before) {
+  border-color: var(--accent-color) !important;
+  background: var(--accent-color) !important;
+}
+
+.formRoot :global(.ui.radio.checkbox input:checked ~ label:after) {
+  background: #fff !important; /* inner dot */
+}
+
+.formRoot :global(.ui.radio.checkbox input:focus ~ label:before),
+.formRoot :global(.ui.radio.checkbox input:active ~ label:before) {
+  box-shadow: 0 0 0 1px var(--accent-color) inset !important;
+}
+
+/* --- Markdown editor layout --- */
+.editorWrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin: 0.2rem;
+}
+
+.editorColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.editorLabel {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.editorToolbar {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 40px;
+}
+
+.editorBox {
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* Preview */
+.previewColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.previewBox {
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: 6px;
+  background: #fafafa;
+  overflow-y: auto;
+}
+
+.previewContent {
+  padding: 0.5rem;
+}
+
+/* --- TagInput layout (prevents input shrink) --- */
+.tagRow {
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  gap: 0.5rem;
+}
+
+.tagChips {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tagInputWrap {
+  width: 100%; /* input always full width */
+}
+
+
+/* Upload block */
+.uploadWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.hiddenFileInput {
+  display: none;
+}
+
+.uploadPreview {
+  max-height: 220px;
+  object-fit: contain;
+}
+
+.uploading { margin-top: 10px; }
+.uploadError { margin-top: 10px; }
+
+/* Preview + Clear button container (image appears above buttons) */
+.uploadPreviewBlock {
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Messages spacing */
+.msg { margin-top: 12px; }
+
+.clearImage{
+    cursor: pointer;
+    color: var(--accent-color);
+    font-size: 0.8em;
+}

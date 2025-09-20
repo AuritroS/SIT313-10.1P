@@ -1,0 +1,41 @@
+.nav {
+  z-index: 1000;
+  background: var(--navbar-bg) !important; /* theme-aware */
+}
+
+/* Menu items inherit theme text color */
+.nav :global(.item) {
+  color: var(--text-color) !important;
+}
+
+/* Middle search takes all free space */
+.grow {
+  flex: 1 1 auto !important;
+}
+
+/* Make the input truly full width inside the growing item */
+.search {
+  width: 100%;
+}
+.user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.userFree {
+  opacity: 0.5;
+  pointer-events: auto; /* still clickable */
+}
+
+.userPremium {
+  opacity: 1;
+}
+
+/* Slight spacing before the badge */
+.userName {
+  color: var(--text-color) !important;
+  font-weight: 400;
+}
+
+

@@ -1,0 +1,62 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  text-align: left;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+/* Let Semantic handle most of the layout */
+.cards {
+  margin-top: 1.5rem !important;
+  display: flex !important;              /* use flexbox */
+  flex-wrap: wrap !important;
+  justify-content: center !important;    /* center grid horizontally */
+  max-width: 1100px;                     /* cap width so rows stay centered */
+  margin-left: auto !important;          /* center within page */
+  margin-right: auto !important;
+}
+
+
+/* Spinner */
+.loadingBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 160px;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  color: color-mix(in srgb, var(--text-color) 70%, var(--bg-color));
+  margin-top: 1rem;
+}
+
+/* Load more button */
+.loadMore {
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.accentButton.ui.button {
+  background: var(--accent-color) !important;
+  color: var(--accent-contrast) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 600 !important;
+  transition: background 0.2s ease, transform 0.1s ease, opacity 0.2s ease;
+}
+.accentButton.ui.button:hover {
+  background: color-mix(in srgb, var(--accent-color) 85%, black) !important;
+  transform: translateY(-1px);
+}
+.accentButton.ui.button:active {
+  transform: translateY(0);
+}
