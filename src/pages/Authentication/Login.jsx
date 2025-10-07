@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, startTransition  } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
   Header,
@@ -9,15 +9,15 @@ import {
   Message,
   Divider,
   Icon,
-} from 'semantic-ui-react';
+} from "semantic-ui-react";
 import {
   signInWithGooglePopup,
   createUserDocFromAuth,
   signInAuthUserWithEmailAndPassword,
-} from '../../api/firebase';
+} from "../../api/firebase";
 
 const Login = () => {
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
 
@@ -29,10 +29,12 @@ const Login = () => {
     try {
       setSubmitting(true);
       await signInAuthUserWithEmailAndPassword(form.email, form.password);
-      navigate('/', { replace: true });
+     startTransition(() => {
+           navigate("/", { replace: true });
+         });
     } catch (err) {
       console.log(err);
-      alert('Invalid email or password');
+      alert("Invalid email or password");
     } finally {
       setSubmitting(false);
     }
@@ -43,10 +45,12 @@ const Login = () => {
       setSubmitting(true);
       const { user } = await signInWithGooglePopup();
       await createUserDocFromAuth(user);
-      navigate('/', { replace: true });
+      startTransition(() => {
+        navigate("/", { replace: true });
+      });
     } catch (err) {
       console.log(err);
-      alert('Google sign-in failed');
+      alert("Google sign-in failed");
     } finally {
       setSubmitting(false);
     }
@@ -77,7 +81,7 @@ const Login = () => {
             required
           />
 
-          <Button primary fluid content="Login" className='btn-primary' />
+          <Button primary fluid content="Login" className="btn-primary" />
 
           <Divider horizontal>or</Divider>
 

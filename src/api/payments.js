@@ -1,5 +1,6 @@
 // src/api/payments.js
-const region = process.env.REACT_APP_FIREBASE_FUNCTIONS_REGION || "australia-southeast1";
+const region =
+  process.env.REACT_APP_FIREBASE_FUNCTIONS_REGION || "australia-southeast1";
 const projectId = "deakin-app-7d1a8";
 
 const base =
@@ -7,7 +8,10 @@ const base =
     ? `http://127.0.0.1:5001/${projectId}/${region}`
     : `https://${region}-${projectId}.cloudfunctions.net`;
 
-export async function createPaymentIntent({ plan = "premium", uid = "anon" } = {}) {
+export async function createPaymentIntent({
+  plan = "premium",
+  uid = "anon",
+} = {}) {
   const res = await fetch(`${base}/createPaymentIntent`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

@@ -3,7 +3,6 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 0 1rem;
-
 }
 
 .toolbar {
@@ -33,7 +32,9 @@
 }
 
 /* ---------------- Search ---------------- */
-.searchBox { position: relative; }
+.searchBox {
+  position: relative;
+}
 .searchClear {
   position: absolute;
   right: 10px;
@@ -42,8 +43,16 @@
   cursor: pointer;
 }
 
+.pendingNotice {
+  margin: 12px 0;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+}
+
 /* ---------------- Date Picker (wrapper + popover) ---------------- */
-.dateButtonWrapper { position: relative; }
+.dateButtonWrapper {
+  position: relative;
+}
 
 .datePopover {
   position: absolute;
@@ -52,7 +61,7 @@
   top: calc(100% + 8px);
   background: var(--bg-color);
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   overflow: hidden;
 }
 
@@ -62,7 +71,10 @@
   padding: 8px;
 }
 
-.datePopoverBtns { display: flex; gap: 8px; }
+.datePopoverBtns {
+  display: flex;
+  gap: 8px;
+}
 
 /* Accent the Apply button rendered inside our popover */
 .datePopoverActions :global(.ui.primary.button) {
@@ -118,8 +130,14 @@
   opacity: 0.6;
 }
 
-.tagItem { margin-bottom: 6px !important; }
-.tagRemove { cursor: pointer; margin-left: 6px; color: var(--accent-color) !important; }
+.tagItem {
+  margin-bottom: 6px !important;
+}
+.tagRemove {
+  cursor: pointer;
+  margin-left: 6px;
+  color: var(--accent-color) !important;
+}
 
 /* ---------------- Cards ---------------- */
 .listCard {
@@ -137,14 +155,44 @@
   background: var(--bg-color);
 }
 
-.itemHeaderRow { display: flex; align-items: center; gap: 10px; }
-.itemTitle { margin: 0; flex: 1; font-weight: 600; }
-.itemMeta { color: var(--accent-color); margin-top: 4px; font-size: 0.85rem; }
-.itemBody { margin-top: 10px; color: var(--text-color); }
-.itemBodyMuted { margin-top: 10px; color: #666; }
-.itemFullBody { white-space: pre-wrap; word-break: break-word; font-size: 14px; line-height: 1.5; }
-.itemActions { margin-top: 10px; }
-.dragHandle { cursor: grab; padding: 4px; line-height: 0; display: inline-flex; }
+.itemHeaderRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.itemTitle {
+  margin: 0;
+  flex: 1;
+  font-weight: 600;
+}
+.itemMeta {
+  color: var(--accent-color);
+  margin-top: 4px;
+  font-size: 0.85rem;
+}
+.itemBody {
+  margin-top: 10px;
+  color: var(--text-color);
+}
+.itemBodyMuted {
+  margin-top: 10px;
+  color: #666;
+}
+.itemFullBody {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.itemActions {
+  margin-top: 10px;
+}
+.dragHandle {
+  cursor: grab;
+  padding: 4px;
+  line-height: 0;
+  display: inline-flex;
+}
 
 /* ---------------- Buttons ---------------- */
 .outlineBtn {
@@ -152,7 +200,9 @@
   color: var(--accent-color) !important;
   background: transparent !important;
   border-radius: 6px !important;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 .outlineBtn:hover,
 .outlineBtn:focus {
@@ -191,7 +241,9 @@
 
 /* Preview outlines (no background here; just accent borders) */
 :global(.rdrDayStartPreview),
-:global(.rdrDayEndPreview) { border-color: var(--accent-color) !important; }
+:global(.rdrDayEndPreview) {
+  border-color: var(--accent-color) !important;
+}
 :global(.rdrDayInPreview) {
   border-top: 1px solid var(--accent-color) !important;
   border-bottom: 1px solid var(--accent-color) !important;
@@ -238,12 +290,6 @@
   color: var(--text-color) !important;
 }
 
-
-
-
-
-
-
 /* ---------------- Tags ---------------- */
 .tagRow {
   display: flex;
@@ -288,7 +334,6 @@
   opacity: 0.6; /* half */
 }
 
-
 .tagItem {
   margin-bottom: 6px !important;
 }
@@ -301,7 +346,7 @@
 
 /* ---------------- Cards ---------------- */
 .listCard {
- border-bottom: 1px solid var(--accent-color);
+  border-bottom: 1px solid var(--accent-color);
   padding: 12px;
   margin-bottom: 10px;
   background: var(--bg-color);
@@ -367,7 +412,9 @@
   color: var(--accent-color) !important;
   background: transparent !important;
   border-radius: 6px !important;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
 }
 
 .outlineBtn:hover,

@@ -31,7 +31,7 @@ const firebaseConfig = {
   storageBucket: "deakin-app-7d1a8.firebasestorage.app",
   messagingSenderId: "1022319390737",
   appId: "1:1022319390737:web:94b258e6bd9310906cc1b0",
-  measurementId: "G-5J45YH0H4N"
+  measurementId: "G-5J45YH0H4N",
 };
 
 const app = initializeApp(firebaseConfig);
@@ -45,7 +45,8 @@ export const storage = getStorage(app);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 export const createAuthUserWithEmailAndPassword = (email, password) =>
   createUserWithEmailAndPassword(auth, email, password);
 export const signInAuthUserWithEmailAndPassword = (email, password) =>
@@ -58,7 +59,12 @@ export const createUserDocFromAuth = async (userAuth, additional = {}) => {
   if (!snap.exists()) {
     await setDoc(
       ref,
-      { email: userAuth.email ?? null, createdAt: new Date(), hiddenQuestionIds: [], ...additional },
+      {
+        email: userAuth.email ?? null,
+        createdAt: new Date(),
+        hiddenQuestionIds: [],
+        ...additional,
+      },
       { merge: true }
     );
   }
@@ -76,7 +82,11 @@ const ensureUserDoc = async (uid) => {
   const ref = doc(db, "users", uid);
   const snap = await getDoc(ref);
   if (!snap.exists()) {
-    await setDoc(ref, { createdAt: new Date(), hiddenQuestionIds: [], questionOrder: [] }, { merge: true });
+    await setDoc(
+      ref,
+      { createdAt: new Date(), hiddenQuestionIds: [], questionOrder: [] },
+      { merge: true }
+    );
   }
   return ref;
 };
@@ -89,7 +99,7 @@ const toTagsArray = (val) => {
       arr
         .map((t) => String(t).trim().toLowerCase())
         .filter(Boolean)
-        .map((t) => t.replace(/\s+/g, "-").replace(/[^a-z0-9+\-]/g, ""))
+        .map((t) => t.replace(/\s+/g, "-").replace(/[^a-z0-9+-]/g, ""))
         .filter(Boolean)
     )
   );
@@ -142,39 +152,53 @@ export const createQuestion = async ({
 
 /* Deletes  */
 export const deletePost = (postId) => deleteDoc(doc(db, "posts", postId));
-export const deleteQuestion = (questionId) => deleteDoc(doc(db, "questions", questionId));
+export const deleteQuestion = (questionId) =>
+  deleteDoc(doc(db, "questions", questionId));
 
 /* Real-time listeners  */
-export const listenToPosts = (cb) => onSnapshot(query(postsCol, orderBy("createdAt", "desc")), cb);
-export const listenToQuestions = (cb) => onSnapshot(query(questionsCol, orderBy("createdAt", "desc")), cb);
+export const listenToPosts = (cb) =>
+  onSnapshot(query(postsCol, orderBy("createdAt", "desc")), cb);
+export const listenToQuestions = (cb) =>
+  onSnapshot(query(questionsCol, orderBy("createdAt", "desc")), cb);
 
 /* ---------- Per-user "Hide question" ---------- */
 
-export const hideQuestionForUser = async (questionId, uid = auth.currentUser?.uid) => {
+export const hideQuestionForUser = async (
+  questionId,
+  uid = auth.currentUser?.uid
+) => {
   if (!uid) throw new Error("Not authenticated");
   const ref = await ensureUserDoc(uid);
   await updateDoc(ref, { hiddenQuestionIds: arrayUnion(questionId) });
 };
 
-export const unhideQuestionForUser = async (questionId, uid = auth.currentUser?.uid) => {
+export const unhideQuestionForUser = async (
+  questionId,
+  uid = auth.currentUser?.uid
+) => {
   if (!uid) throw new Error("Not authenticated");
   const ref = await ensureUserDoc(uid);
   await updateDoc(ref, { hiddenQuestionIds: arrayRemove(questionId) });
 };
 
 export const listenToHiddenQuestionIds = (uid, cb) => {
-  if (!uid) return () => { };
+  if (!uid) return () => {};
   const ref = doc(db, "users", uid);
-  return onSnapshot(ref, (snap) => cb(snap.exists() ? snap.data().hiddenQuestionIds ?? [] : []));
+  return onSnapshot(ref, (snap) =>
+    cb(snap.exists() ? (snap.data().hiddenQuestionIds ?? []) : [])
+  );
 };
 
 /* ---------- Per-user "Question order" ---------- */
 
 export const listenToQuestionOrder = (uid, cb) => {
-  if (!uid) return () => { };
+  if (!uid) return () => {};
   const ref = doc(db, "users", uid);
   return onSnapshot(ref, (snap) => {
-    const order = snap.exists() && Array.isArray(snap.data().questionOrder) ? snap.data().questionOrder : [];
+    const order =
+      snap.exists() && Array.isArray(snap.data().questionOrder)
+        ? snap.data().questionOrder
+        : [];
     cb(order);
   });
 };
@@ -182,7 +206,11 @@ export const listenToQuestionOrder = (uid, cb) => {
 export const saveQuestionOrder = async (uid, orderIds) => {
   if (!uid) throw new Error("Not authenticated");
   const ref = await ensureUserDoc(uid);
-  await setDoc(ref, { questionOrder: Array.isArray(orderIds) ? orderIds : [] }, { merge: true });
+  await setDoc(
+    ref,
+    { questionOrder: Array.isArray(orderIds) ? orderIds : [] },
+    { merge: true }
+  );
 };
 
 export async function markUserPremium(uid) {

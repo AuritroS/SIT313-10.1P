@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import {
   Button,
   Input,
@@ -9,7 +9,7 @@ import {
   Divider,
   List,
 } from "semantic-ui-react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
 import {
@@ -65,21 +65,21 @@ const tagsOf = (q) =>
   Array.isArray(q.tags)
     ? q.tags.map((t) => String(t).toLowerCase())
     : q.tag
-    ? [String(q.tag).toLowerCase()]
-    : [];
+      ? [String(q.tag).toLowerCase()]
+      : [];
 
 const clip = (s = "", n = 160) =>
-  (String(s).length > n ? s.slice(0, n) + "…" : s);
-
+  String(s).length > n ? s.slice(0, n) + "…" : s;
 
 /* ---------- Small UI Pieces ---------- */
 
-const SearchBox = ({ value, onChange, onClear }) => (
+const SearchBox = ({ value, onChange, onClear, pending }) => (
   <div className={styles.searchBox}>
     <Input
       icon="search"
       placeholder="Search title or description…"
       value={value}
+      loading={pending}
       onChange={(e) => onChange(e.target.value)}
       style={{ width: "100%" }}
     />
@@ -101,7 +101,8 @@ const DateRangeButton = ({ state, setState }) => {
 
   useEffect(() => {
     const onDoc = (e) => {
-      if (open && ref.current && !ref.current.contains(e.target)) setOpen(false);
+      if (open && ref.current && !ref.current.contains(e.target))
+        setOpen(false);
     };
     document.addEventListener("mousedown", onDoc);
     return () => document.removeEventListener("mousedown", onDoc);
@@ -116,7 +117,12 @@ const DateRangeButton = ({ state, setState }) => {
 
   return (
     <div ref={ref} className={styles.dateButtonWrapper}>
-      <Button basic onClick={() => setOpen((s) => !s)} icon labelPosition="left">
+      <Button
+        basic
+        onClick={() => setOpen((s) => !s)}
+        icon
+        labelPosition="left"
+      >
         <Icon name="calendar" />
         {label}
       </Button>
@@ -149,7 +155,11 @@ const DateRangeButton = ({ state, setState }) => {
                 setState({
                   active: false,
                   ranges: [
-                    { startDate: new Date(), endDate: new Date(), key: "selection" },
+                    {
+                      startDate: new Date(),
+                      endDate: new Date(),
+                      key: "selection",
+                    },
                   ],
                 })
               }
@@ -160,8 +170,8 @@ const DateRangeButton = ({ state, setState }) => {
               <Button size="small" onClick={() => setOpen(false)}>
                 Cancel
               </Button>
-                          <Button
-                              className="btn-primary"
+              <Button
+                className="btn-primary"
                 size="small"
                 primary
                 onClick={() => {
@@ -193,11 +203,14 @@ const TagRow = ({ tags, muted = false }) => (
   </div>
 );
 
-
 const TagFilter = ({ tags, setTags, suggestions = [] }) => {
   const [v, setV] = useState("");
   const sanitize = (s) =>
-    s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9+\-]/g, "").trim();
+    s
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9+\-]/g, "")
+      .trim();
   const add = (raw) => {
     const t = sanitize(raw);
     if (t && !tags.includes(t)) setTags([...tags, t]);
@@ -240,7 +253,11 @@ const TagFilter = ({ tags, setTags, suggestions = [] }) => {
             const txt = e.clipboardData.getData("text") || "";
             if (!txt) return;
             e.preventDefault();
-            txt.split(",").map((s) => s.trim()).filter(Boolean).forEach(add);
+            txt
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+              .forEach(add);
           }}
           style={{ width: "100%" }}
           list="tag-suggestions"
@@ -256,8 +273,14 @@ const TagFilter = ({ tags, setTags, suggestions = [] }) => {
 };
 
 const SortableItem = ({ id, children }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
@@ -273,8 +296,8 @@ const SortableItem = ({ id, children }) => {
 /* ---------- Main Page ---------- */
 
 const FindQuestionPage = () => {
-    const { user } = useAuth();
-    const navigate = useNavigate();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   // Data
   const [questions, setQuestions] = useState([]);
@@ -284,6 +307,8 @@ const FindQuestionPage = () => {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
   const [search, setSearch] = useState("");
+  const deferredSearch = useDeferredValue(search);
+  const searchPending = search !== deferredSearch;
   const [selectedTags, setSelectedTags] = useState([]);
   const [expanded, setExpanded] = useState({}); // { [id]: true }
   const [showHidden, setShowHidden] = useState(false);
@@ -317,7 +342,9 @@ const FindQuestionPage = () => {
 
   useEffect(() => {
     if (!user?.uid) return;
-    const unsub = listenToHiddenQuestionIds(user.uid, (ids) => setHiddenIds(ids || []));
+    const unsub = listenToHiddenQuestionIds(user.uid, (ids) =>
+      setHiddenIds(ids || [])
+    );
     return unsub;
   }, [user?.uid]);
 
@@ -351,7 +378,7 @@ const FindQuestionPage = () => {
   const hiddenSet = useMemo(() => new Set(hiddenIds || []), [hiddenIds]);
 
   const filteredVisible = useMemo(() => {
-    const needle = search.trim().toLowerCase();
+    const needle = deferredSearch.trim().toLowerCase();
     const useDate = dateRange.active;
     const from = dateRange.ranges[0].startDate;
     const to = dateRange.ranges[0].endDate;
@@ -366,15 +393,21 @@ const FindQuestionPage = () => {
 
         const qtags = tagsOf(q);
         const byTags =
-          selectedTags.length === 0 || selectedTags.every((t) => qtags.includes(t));
+          selectedTags.length === 0 ||
+          selectedTags.every((t) => qtags.includes(t));
 
         const d = toJsDate(q.createdAt);
-        const byDate = !useDate || !d ? !useDate || !d : (!from || d >= from) && (!to || d <= to);
+        const byDate =
+          !useDate || !d
+            ? !useDate || !d
+            : (!from || d >= from) && (!to || d <= to);
 
         return byText && byTags && byDate;
       })
-      .sort((a, b) => (orderIndex.get(a.id) ?? 1e9) - (orderIndex.get(b.id) ?? 1e9));
-  }, [questions, hiddenSet, search, selectedTags, dateRange, orderIndex]);
+      .sort(
+        (a, b) => (orderIndex.get(a.id) ?? 1e9) - (orderIndex.get(b.id) ?? 1e9)
+      );
+  }, [questions, hiddenSet, deferredSearch, selectedTags, dateRange, orderIndex]);
 
   const hiddenList = useMemo(
     () => questions.filter((q) => hiddenSet.has(q.id)),
@@ -436,7 +469,12 @@ const FindQuestionPage = () => {
       <Segment>
         <div className={styles.toolbar}>
           <div className={styles.toolbarTop}>
-            <SearchBox value={search} onChange={setSearch} onClear={() => setSearch("")} />
+            <SearchBox
+              value={search}
+              onChange={setSearch}
+              onClear={() => setSearch("")}
+              pending={searchPending}
+            />
             <DateRangeButton state={dateRange} setState={setDateRange} />
           </div>
 
@@ -455,7 +493,11 @@ const FindQuestionPage = () => {
                   setDateRange({
                     active: false,
                     ranges: [
-                      { startDate: new Date(), endDate: new Date(), key: "selection" },
+                      {
+                        startDate: new Date(),
+                        endDate: new Date(),
+                        key: "selection",
+                      },
                     ],
                   });
                 }}
@@ -481,6 +523,12 @@ const FindQuestionPage = () => {
         </div>
       </Segment>
 
+      {!loading && searchPending && (
+        <div className={styles.pendingNotice} role="status" aria-live="polite">
+          Filtering results…
+        </div>
+      )}
+
       {/* Hidden list */}
       {showHidden && (
         <Segment>
@@ -497,7 +545,7 @@ const FindQuestionPage = () => {
                   <List.Item key={q.id} className={styles.hiddenCard}>
                     <List.Content>
                       <div className={styles.itemHeaderRow}>
-                        <List.Header  as="h4" className={styles.itemTitle} >
+                        <List.Header as="h4" className={styles.itemTitle}>
                           {q.title}
                         </List.Header>
                         <Icon
@@ -564,8 +612,12 @@ const FindQuestionPage = () => {
                               <Icon name="bars" size="small" color="grey" />
                             </span>
 
-                            <List.Header as="h4" className={styles.itemTitle} onClick={() => navigate(`/question/${q.id}`)}
-  style={{ cursor: "pointer" }}>
+                            <List.Header
+                              as="h4"
+                              className={styles.itemTitle}
+                              onClick={() => navigate(`/question/${q.id}`)}
+                              style={{ cursor: "pointer" }}
+                            >
                               {q.title}
                             </List.Header>
 
@@ -579,15 +631,18 @@ const FindQuestionPage = () => {
                             />
                           </div>
 
-                         <TagRow tags={t} muted />
-
+                          <TagRow tags={t} muted />
 
                           <div className={styles.itemMeta}>
-                            {q.createdAt ? `Posted ${fmtDate(q.createdAt)}` : ""}
+                            {q.createdAt
+                              ? `Posted ${fmtDate(q.createdAt)}`
+                              : ""}
                           </div>
 
                           {!isOpen && (
-                            <div className={styles.itemBody}>{clip(q.description, 160)}</div>
+                            <div className={styles.itemBody}>
+                              {clip(q.description, 160)}
+                            </div>
                           )}
 
                           {isOpen && (
@@ -600,20 +655,21 @@ const FindQuestionPage = () => {
                           )}
 
                           <div className={styles.itemActions}>
-                           <Button
-  size="small"
-  type="button"
-  onClick={() =>
-    setExpanded((s) => ({ ...s, [q.id]: !s[q.id] }))
-  }
-  icon
-  labelPosition="left"
-  className={`${styles.outlineBtn} ${isOpen ? styles.outlineBtnActive : ""}`}
->
-  <Icon name={isOpen ? "chevron up" : "chevron down"} />
-  {isOpen ? "Collapse" : "Expand"}
-</Button>
-
+                            <Button
+                              size="small"
+                              type="button"
+                              onClick={() =>
+                                setExpanded((s) => ({ ...s, [q.id]: !s[q.id] }))
+                              }
+                              icon
+                              labelPosition="left"
+                              className={`${styles.outlineBtn} ${isOpen ? styles.outlineBtnActive : ""}`}
+                            >
+                              <Icon
+                                name={isOpen ? "chevron up" : "chevron down"}
+                              />
+                              {isOpen ? "Collapse" : "Expand"}
+                            </Button>
                           </div>
                         </List.Content>
                       </List.Item>
@@ -626,7 +682,11 @@ const FindQuestionPage = () => {
         </DndContext>
       )}
 
-      {err && <Message negative style={{ marginTop: 12 }}>{err}</Message>}
+      {err && (
+        <Message negative style={{ marginTop: 12 }}>
+          {err}
+        </Message>
+      )}
     </div>
   );
 };

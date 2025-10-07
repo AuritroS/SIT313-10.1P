@@ -1,16 +1,26 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Header, Form, Button, Segment, Message } from 'semantic-ui-react';
-import { createAuthUserWithEmailAndPassword, createUserDocFromAuth } from '../../api/firebase';
-import bcrypt from 'bcryptjs';
+import React, { useState, startTransition } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Container,
+  Header,
+  Form,
+  Button,
+  Segment,
+  Message,
+} from "semantic-ui-react";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from "../../api/firebase";
+import bcrypt from "bcryptjs";
 
 const Signup = () => {
   const [contact, setContact] = useState({
-    displayName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+    displayName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
@@ -23,27 +33,32 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     if (password !== confirmPassword) {
-      return alert('Passwords do not match!');
+      return alert("Passwords do not match!");
     }
     try {
       setSubmitting(true);
 
-      const { user } = await createAuthUserWithEmailAndPassword(email, password);
+      const { user } = await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
 
-      // Hash password with bcrypt 
+      // Hash password with bcrypt
       const passwordHash = await bcrypt.hash(password, 10);
 
-      // Store profile in Firestore with hash 
+      // Store profile in Firestore with hash
       await createUserDocFromAuth(user, {
         displayName,
         lastName,
-        passwordHash, 
+        passwordHash,
       });
 
-      navigate('/login', { replace: true });
+      startTransition(() => {
+        navigate("/login", { replace: true });
+      });
     } catch (err) {
-      console.log('error creating user', err.message);
-      alert('Sign up failed. ' + err.message);
+      console.log("error creating user", err.message);
+      alert("Sign up failed. " + err.message);
     } finally {
       setSubmitting(false);
     }
@@ -97,7 +112,7 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
-          <Button primary fluid content="Sign up" className='btn-primary' />
+          <Button primary fluid content="Sign up" className="btn-primary" />
         </Form>
       </Segment>
 

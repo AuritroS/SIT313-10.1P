@@ -107,9 +107,9 @@ export default function PayPage() {
 
   // Only create a PaymentIntent if a user is logged in and not premium
   useEffect(() => {
-    if (!user) return;           // not signed in → skip (we'll show sign-in CTA)
+    if (!user) return; // not signed in → skip (we'll show sign-in CTA)
     if (loading) return;
-    if (premium) return;         // already premium → no PI
+    if (premium) return; // already premium → no PI
 
     let cancelled = false;
     (async () => {
